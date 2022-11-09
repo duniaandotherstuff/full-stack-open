@@ -10,14 +10,29 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.'
   ]
-  const selectRandomAnecdoteIndex = () => Math.floor(Math.random() * anecdotes.length)
-  const [indexOfSelectedAnecdote, setIndexOfSelectedAnecdote] = useState(selectRandomAnecdoteIndex())
-  const displayRandomAnecdote = () => setIndexOfSelectedAnecdote(selectRandomAnecdoteIndex())
+
+  const getRandomInteger = (max) => Math.floor(Math.random() * max)
+
+  const [selectedIndex, setSelectedIndex] = useState(getRandomInteger(anecdotes.length))
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
+
+  const showNextRandomAnecdote = () => setSelectedIndex(getRandomInteger(anecdotes.length))
+
+  const voteForCurrentAnecdote = () => {
+    const votesCopy = [...votes]
+    votesCopy[selectedIndex] += 1
+    setVotes(votesCopy)
+  }
+
   return (
     <div>
-      {anecdotes[indexOfSelectedAnecdote]}
       <div>
-        <button onClick={displayRandomAnecdote}>next anecdote</button>
+        <p>"{anecdotes[selectedIndex]}"</p>
+        <p>has {votes[selectedIndex]} votes</p>
+      </div>
+      <div>
+        <button onClick={voteForCurrentAnecdote}>vote</button>
+        <button onClick={showNextRandomAnecdote}>next anecdote</button>
       </div>
     </div>
   )
