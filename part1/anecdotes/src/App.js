@@ -1,4 +1,6 @@
 import { useState } from "react"
+import AnecdoteOfTheDay from "./components/AnecdoteOfTheDay"
+import AnecdoteWithMostVotes from "./components/AnecdoteWithMostVotes"
 
 const App = () => {
   const anecdotes = [
@@ -16,24 +18,19 @@ const App = () => {
   const [selectedIndex, setSelectedIndex] = useState(getRandomInteger(anecdotes.length))
   const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
 
-  const showNextRandomAnecdote = () => setSelectedIndex(getRandomInteger(anecdotes.length))
-
-  const voteForCurrentAnecdote = () => {
+  const voteHandler = () => {
     const votesCopy = [...votes]
     votesCopy[selectedIndex] += 1
     setVotes(votesCopy)
   }
 
+  const nextRandomAnecdoteHandler = () => setSelectedIndex(getRandomInteger(anecdotes.length))
+
   return (
     <div>
-      <div>
-        <p>"{anecdotes[selectedIndex]}"</p>
-        <p>has {votes[selectedIndex]} votes</p>
-      </div>
-      <div>
-        <button onClick={voteForCurrentAnecdote}>vote</button>
-        <button onClick={showNextRandomAnecdote}>next anecdote</button>
-      </div>
+      <AnecdoteOfTheDay anecdotes={anecdotes} selectedIndex={selectedIndex} votes={votes} 
+        voteHandler={voteHandler} nextRandomAnecdoteHandler={nextRandomAnecdoteHandler} />
+      <AnecdoteWithMostVotes anecdotes={anecdotes} votes={votes} />
     </div>
   )
 }
