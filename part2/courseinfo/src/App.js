@@ -1,4 +1,4 @@
-import Course from "./components/Course"
+import ListOfCourses from "./components/ListOfCourses"
 
 const createPart = (partId, partName, numberOfExercises) => {
   return {
@@ -9,20 +9,31 @@ const createPart = (partId, partName, numberOfExercises) => {
 }
 
 const App = () => {
-  const course = {
-    id: 1,
-    name: "Half stack application development",
-    parts: [
-      createPart(1, "Fundamentals of React", 10),
-      createPart(2, "Using props to pass data", 7),
-      createPart(3, "State of a component", 14),
-      createPart(4, "Fake part", 12)
-    ]
-  }
+  const courses = [
+    {
+      id: 1,
+      name: "Half stack application development",
+      parts: [
+        createPart(1, "Fundamentals of React", 10),
+        createPart(2, "Using props to pass data", 7),
+        createPart(3, "State of a component", 14),
+        createPart(4, "Redux", 11)
+      ]
+    },
+    {
+      id: 2,
+      name: "Node.js",
+      parts: [
+        createPart(1, "Rounting", 3),
+        createPart(2, "Middlewares", 7),
+        createPart(3, "Fakepart", 5)
+      ]
+    }
+  ]
   return (
     <div>
       <h1>Available courses</h1>
-      <Course course={course} />
+      <ListOfCourses courses={courses} />
     </div>
   )
 }
